@@ -1,0 +1,43 @@
+package com.example.demo.dto;
+
+import java.sql.Date;
+
+public class CustomerClassificationResponseDTO {
+
+    private Long id;
+    private String customerClassificationType;
+    private String customerClassificationTypeValue;
+    private Date effectiveDate;
+    private Character crudValue;
+    private String userID;
+    private String workstationID;
+    private String programID;
+    private String uuid;
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getCustomerClassificationType() { return customerClassificationType; }
+    public void setCustomerClassificationType(String customerClassificationType) { this.customerClassificationType = customerClassificationType; }
+
+    public String getCustomerClassificationTypeValue() { return customerClassificationTypeValue; }
+    public void setCustomerClassificationTypeValue(String customerClassificationTypeValue) { this.customerClassificationTypeValue = customerClassificationTypeValue; }
+
+    public Date getEffectiveDate() { return effectiveDate; }
+    public void setEffectiveDate(Date effectiveDate) { this.effectiveDate = effectiveDate; }
+
+    public Character getCrudValue() { return crudValue; }
+    public void setCrudValue(Character crudValue) { this.crudValue = crudValue; }
+
+    public String getUserID() { return userID; }
+    public void setUserID(String userID) { this.userID = userID; }
+
+    public String getWorkstationID() { return workstationID; }
+    public void setWorkstationID(String workstationID) { this.workstationID = workstationID; }
+
+    public String getProgramID() { return programID; }
+    public void setProgramID(String programID) { this.programID = programID; }
+
+    public String getUuid() { return uuid; }
+    public void setUuid(String uuid) { this.uuid = uuid; }
+}
