@@ -32,11 +32,6 @@ Open MySQL Workbench or your MySQL terminal and run:
 CREATE DATABASE IF NOT EXISTS customers;
 ```
 
-The backend already has:
-- Username: `root`
-- Password: `SDcard!@123`
-- DB name: `customers`
-
 If your MySQL password is different, edit:
 `backend/src/main/resources/application.properties`
 
