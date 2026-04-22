@@ -1,0 +1,214 @@
+Audit Columns: These are the Audit Columns that should be present in all the entities. Column Names with "OOO" represent
+the Entity Code.
+Column Name Data Type Description
+9
+OOO_USER_ID VARCHAR2(32 CHAR) NOT
+NULL
+User ID – May be the person. User id of the
+user who initiated the process
+OOO_WS_ID VARCHAR2(32 CHAR) NOT
+NULL
+workstation ID/channel ID/IP Address
+OOO_LOCAL_TS TIMESTAMP NOT NULL This is an Operation Timestamp. When the
+Transaction is initiated. This is in UTC. same
+timestamp will carry for a transaction.
+OOO_HOST_TS TIMESTAMP NOT NULL This is UTC timestamp when the row got
+updated in the table. Each row of the table will
+have diff timestamp.
+RULE_SYSTEM_ID VARCHAR2(32 CHAR) NOT
+NULL
+Business process/Module that initiated the
+process
+LDBID NUMBER(6) NOT NULL The logical database identifier for the financial
+institution.
+OOO_ACPT_TS TIMESTAMP NOT NULL This is NOT UTC time. this is a local/client
+system timestamp. This can be passed from the
+channel also.
+If not passed, then this will contain the
+LOCAL_TS values but NOT in UTC.
+OOO_ACPT_TS_UTC_OFST CHAR(6 CHAR) NOT NULL This is offset time-zone for the ACPT_TS. So
+that ACPT_TS can also convert to UTC.
+UUID VARCHAR2(36 CHAR) Unique Service Request Identifier
+Standard for defining tables and columns:
+In the software industry there are certain naming standards followed at each level.
+In the database the following conventions needs to be followed:
+1. Table names must have indicators of the functional area.
+2. Usually, abbreviations are used while defining the tables and columns. Standard abbreviation sample is given. One can
+have their own standards but documenting them for others to understand is very important.
+3. Underscores separate the distinct terms that define the Table or Column as per the standard conventions. Tablename and
+column name can have multiple underscores.
+Database%20Standar
+d%20Abbreviations.xlsx
+Note: Oracle Financial Services Analytical Applications (OFSAA) naming standard is given as a sample for reference so that the
+students are aware that there are certain standards to be followed in the industry. This need not be followed. Student can come
+up with their own standards, document them in their journals along with the ERD.
+Sample for Naming standard: 2 Table and Column Naming Standards
+Converting ERD to Tables and columns:
+Note: In all the tables include the audit columns when defining the table.
+Entity and Attribute Definitions
+Entity Description/Attributes Comments
+10
+Classification
+types
+The main attributes are listed below.
+Entity: Customer Classification Table
+Attributes:
+• Customer Classification ID
+• Customer Classification Type
+• Customer Classification Type Value
+• Effective Date (Audit Field)
+Teach how data can be classified and how new classifications
+can be added without having to change the DB structures.
+Defining system data without having Screens/API's to capture
+them.
+Use of INSERT SQL scripts.
+Sample of listing the data for given classification type would
+be provided as sample.
+Used to define:
+* Id types
+* Name types
+* Customer Type
+* Address Types etc.
+Customer
+Identification
+The main entities other than common ones are listed
+below.
+Entity: Customer Identification
+Attributes:
+* Customer Identification ID
+* Customer Identification Type
+* Customer Identification Item
+* Effective Date (Audit Field)
+Teach generation of number by using DB sequence for
+Customer ID
+Use of internal identifiers and external identifiers.
+Unique identifier for a given customer - check for duplicates in
+user entered values.
+Use of alternate options like phone number for customer
+identification.
+Customer
+Details
+The main entities other than common ones are listed
+below. The detail structure is defined in Table
+Structure worksheet under
+Entity: Customer Details Table
+Attributes:
+* Customer Number
+* Customer Type
+* Customer Full Name
+* Customer DOB/DOI
+* Customer Status
+* Customer Contact Number
+* Customer Mobile Number
+* Customer Email ID
+* Customer Country of Origination
+* Effective Date
+Teach how data can be stored in different columns as the data
+of this type are unique and not repetitive.
+Use of composite Keys.
+Use Of Foreign Key.
+Various Data types.
+Customer
+Name
+The main entities other than common ones are listed
+below.
+Entity: Customer Name components
+Attribute:
+* Customer Identifier
+* Customer Name Component Type –
+ From Classification ID
+* Customer Name value
+* Effective Date
+This will be provided as API from the code connect which the
+students can use to store the customer’s name components
+Customer
+Proof of
+Identity
+The main entities other than common ones are listed
+below.
+Entity: Customer Proof of Identity
+Attributes:
+* Customer Identifier
+* Customer Proof of ID Type - From Classification ID
+* Customer Classification Type Value
+* Start Date
+* End Date
+* Effective Date
+This can be part of Mini project
+Teach how different types of same information can be stored
+as rows in table than adding them as columns. Validity of data,
+history of data etc.
+One or more ID Types can be defined.
+Each ID type and value should be unique.
+At a given point in time there should not be duplicate values
+for a given ID type
+Each ID type should have a start and end date.
+For the type that are unique for the life of customer the end
+date should be max date and can never expire.
+All the ID types should retain the history.
+11
+Customer
+Address
+The main entities other than common ones are listed
+below. The detail structure is defined in Table
+Structure worksheet under - Customer Address
+components
+* Customer Identifier
+* Customer Address Component Type - From
+Classification ID
+* Customer Address value
+* Effective Date
+This can be part of Mini project
+This will be provided as API from the code connect which the
+students can use to store the customer address
+compone+C24nts
+Sample of Customer Classification Table Structure:
+Customer Classification
+Entity Name Short name Description
+Customer Classification CUST_CL Used to define different classification types used to design customer data.
+Example:
+Customer Types - Individual, Corporate
+Customer Name Types - First Name, Middle Name, Last Name etc.
+Customer ID Types - Aadhar, Passport No, Driving License etc.
+Customer Address Type - First Line, Middle Line, Last Line etc.
+Attribute Short Name Data Type / Size Description
+Customer Classification ID CSTCL_ID NUMBER(15) Classification ID which will be used in other tables to store the
+value
+Customer Classification
+Type
+CSTCL_TYP VARCHAR(100) Defines the Classification type
+Customer Classification
+Type Value
+CSTCL_TYP_VALUE VARCHAR(100) Defines the Classification Value
+Effective Date (Audit Field) CSTCL_EFCTV_DT DATE Date from when the data is effective from
+CRUD Value CSTCL_CRUD_VALUE CHAR(1) Logical status of the data
+C - Created
+U - Updated
+D – Deleted
+User ID (Audit Field) CSTCL_USER_ID VARCHAR(100) User who created the data
+Workstation ID (Audit Field) CSTCL_WS_ID VARCHAR(100) Workstation from where the data is created
+Program ID (Audit Field) CSTCL_PRGM_ID VARCHAR(100) Program that inserted the data
+Host Timestamp (Audit
+Field)
+CSTCL_HOST_TS TIMESTAMP The timestamp when the record is inserted in the DB to be
+obtained in the program from the host
+Local Timestamp (Audit
+Field)
+CSTCL_LOCAL_TS TIMESTAMP The timestamp of the system that initiates the record i.e the
+timestamp of the user workstation which can be different from
+the host timestamp
+Acceptance Timestamp
+(Audit Field)
+CSTCL_ACPT_TS TIMESTAMP The timestamp when the record is accepted in the system
+Acceptance Timestamp UTC
+offset (Audit Field)
+CSTCL_ACPT_TS_UTC_OFS
+T
+TIMESTAMP The timestamp when the record is inserted in the DB to be
+obtained in the program from the host
+Universal Unique Identifier
+(UUID)
+CSTCL_UUID VARCHAR(100) Universal Unique Identifier is system generated ID, used to
+uniquely identify the Process that updated the records in the
+system.
+
